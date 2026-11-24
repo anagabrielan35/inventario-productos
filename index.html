@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario de productos</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js" defer></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+</head>
+
+<body>
+  <section id="seccion-login" class="panel">
+    <h2>Iniciar sesión</h2>
+    <p>Bienvenido al sistema de inventario y ventas</p>
+
+    <form id="formulario-login">
+      <label for="correo-login">Correo electrónico</label>
+      <input
+      type="email"
+      id="correo-login"
+      placeholder="Ingresa tu correo"
+      required>
+
+      <label for="contrasena-login">Contraseña</label>
+      <input 
+      type="password"
+      id="contrasena-login"
+      placeholder="Ingresa tu contraseña"
+      required>
+      
+      <button type="submit">Iniciar sesión</button>
+    
+    </form>
+
+    <p id="mensaje-login" class="mensaje" role="status"></p>
+  </section>
+
+
+  <main class="contenedor" id="contenido-inventario" hidden>
+    <header class="encabezado">
+      <p class="curso">Programación Web · Unidad 3</p>
+      <h1>Inventario de productos 🛒</h1>
+      <button id="boton-cerrar-sesion" type ="button">Cerrar sesión</button>
+      <p>Ejemplo de formularios, arreglos y manipulación del DOM con JavaScript.</p>
+    </header>
+
+    <section class="estadisticas" aria-label="Resumen del inventario">
+      <div><span>Productos</span><strong id="total-productos">0</strong></div>
+      <div><span>Unidades</span><strong id="total-unidades">0</strong></div>
+      <div><span>Valor total</span><strong id="valor-inventario">$0.00</strong></div>
+    </section>
+
+    <section class="contenido">
+      <section class="panel">
+        <h2 id="titulo-formulario">Agregar producto</h2>
+        <p>Completa todos los campos.</p>
+
+        <form id="formulario-producto" novalidate>
+          <label for="nombre">Nombre</label>
+          <input id="nombre" type="text" placeholder="Ej. Audífonos" autocomplete="off">
+
+          <label for="precio">Precio (MXN)</label>
+          <input id="precio" type="number" placeholder="Ej. 599.90" min="0" step="0.01">
+
+          <label for="cantidad">Cantidad</label>
+          <input id="cantidad" type="number" placeholder="Ej. 8" min="0" step="1">
+
+          <button id="boton-guardar" type="submit">Agregar producto</button>
+          <button id="boton-cancelar" class="secundario" type="button" hidden>Cancelar edición</button>
+
+        </form>
+
+        <p id="mensaje" class="mensaje" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="panel panel-tabla">
+        <h2>Productos registrados</h2>
+        <p>La tabla se actualiza con JavaScript.</p>
+
+        <label for="buscar-producto">Buscar producto</label>
+        <input
+        type="text"
+        id="buscar-producto"
+        placeholder="Escribe el nombre del producto"
+        autocomplete="off">
+
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody id="lista-productos"></tbody>
+          </table>
+        </div>
+
+        <p id="estado-vacio" class="estado-vacio" hidden>No se encontro el producto</p>
+        <button id="boton-recargar">Boton recargar</button>
+      </section>
+    </section>
+
+    <section class="ventas">
+      <section class="panel">
+        <h2>Registrar venta</h2>
+        <p>Selecciona un producto, indica cantidad a vender</p>
+
+        <form id="formulario-venta" novalidate>
+          <label for="venta-producto">Producto</label>
+          <select id="venta-producto" required>
+            <option value ="">Selecciona un producto</option>
+          </select>
+
+          <label for="venta-cantidad">Cantidad</label>
+          <input
+          id="venta-cantidad"
+          type="number"
+          min="1"
+          step="1"
+          placeholder="Ej. 3"
+          required>
+
+          <button id="boton-registrar-venta" type="submit">
+            Registrar venta
+          </button>
+
+        </form>
+
+        <p id="mensaje-venta" class="mensaje" role="status"></p>
+      </section>
+      <section class="panel panel-tabla">
+        <h2> Registro de transacciones</h2>
+        <p>Consulta las ventas realizadas</p>
+
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio por Unidad</th>
+                <th>Total</th>
+                <th>Fecha</th>
+
+              </tr>
+            </thead>
+            <tbody id="tabla-ventas"></tbody>
+          </table>
+        </div>
+
+        <p id="estatus-ventas" class="estado-vacio" hidden>
+          No hay ventas registradas
+        </p>
+      </section>
+    </section>
+
+    <aside class="experimento">
+      <strong>Experimento de clase:</strong>
+      agrega un producto y recarga la página. Los cambios desaparecen porque todavía
+      no usamos una base de datos.
+    </aside>
+
+  </main>
+</body>
+
+</html>
